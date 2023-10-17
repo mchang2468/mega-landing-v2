@@ -60,7 +60,7 @@ const Banner = () => {
 
         {/* <Image sx={styles.logo} src={logoImage} alt="logo image" /> */}
         <Heading as="h2">Empowering Thousands With The Gift Of Technology</Heading>
-        <Heading as="h4" style={{marginTop: -50, marginBottom: 50, fontWeight: 200}}>47 Countries Reached | $400k+ Raised & Awarded</Heading>
+        <Heading as="h4" style={{marginTop: -50, marginBottom: 50, fontWeight: 200}}>47 Countries Reached | $100k+ Raised & Awarded</Heading>
         <Image src={bannerImage} sx={styles.bannerImage} alt="banner moc" />
       </Container>
     </Box>
