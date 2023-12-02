@@ -12,6 +12,7 @@ const BlogCard = ({ image, title, description, path, linkLabel }) => {
         description === null ? 'noDescription  ' : ''
       } ${linkLabel === null ? 'noLabel ' : ''}`}
     >
+    <a href={path} target="_blank" rel="noopener noreferrer">
       {image !== null && (
         <Box sx={styles.image}>
           <Image src={image} alt={title} />
@@ -29,6 +30,7 @@ const BlogCard = ({ image, title, description, path, linkLabel }) => {
           </Link>
         )}
       </Box>
+    </a>
     </Box>
   );
 };
