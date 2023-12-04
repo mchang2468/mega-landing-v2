@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Container, Image, Heading } from 'theme-ui';
 import { keyframes } from '@emotion/core';
 import logoImage from 'assets/banner-logo.png';
@@ -10,10 +11,49 @@ import bannerIcon4 from 'assets/banner-icon-1-4.svg';
 import bannerIcon5 from 'assets/banner-icon-1-5.svg';
 import bannerIcon6 from 'assets/banner-icon-1-6.svg';
 import bannerIcon7 from 'assets/dot-pattern.svg';
+import arrow from 'assets/arrow.png';
 
 const Banner = () => {
-  return (
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    function isMobileDevice() {
+      return window.innerWidth <= 768;
+    }
+
+    function hideOnMobile() {
+      const element = document.getElementById('hideOnMobile');
+      if (element && isMobileDevice()) {
+        element.style.display = 'none';
+        setIsMobile(true);
+      } else if (element) {
+        element.style.display = 'flex';
+        setIsMobile(false);
+      }
+    }
+
+    hideOnMobile();
+
+    const handleResize = () => {
+      hideOnMobile();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const headingMarginTop = isMobile ? '0px' : '-50px';
+  
+  return (<>
+    <a href="#newsletter"><div id="hideOnMobile" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'black', padding: '10px', marginTop: '10vh' }}>
+      <Heading as="h4" style={{ color: 'white', marginRight: '10px', textAlign: 'center' }}>Opportunity Comes Knocking | Sign Up for the Newsletter Today!</Heading>
+      <img src={arrow} alt="Arrow" style={{ width: '22px', height: '20px' }} />
+    </div></a>
+
     <Box as="section" id="banner" sx={styles.banner}>
+
       <Container sx={styles.container}>
         <Image
           sx={styles.bannerIcon1}
@@ -57,13 +97,14 @@ const Banner = () => {
           alt="banner icon"
           src={bannerIcon7}
         />
-
         {/* <Image sx={styles.logo} src={logoImage} alt="logo image" /> */}
-        <Heading as="h2">Empowering Thousands With The Gift Of Technology</Heading>
+        <Heading as="h2" style={{ marginTop: headingMarginTop }}>
+        Empowering Thousands With The Gift Of Technology
+      </Heading>
         <Heading as="h4" style={{marginTop: -50, marginBottom: 50, fontWeight: 200}}>47 Countries Reached | $100k+ Raised & Awarded</Heading>
         <Image src={bannerImage} sx={styles.bannerImage} alt="banner moc" />
       </Container>
-    </Box>
+    </Box></>
   );
 };
 
