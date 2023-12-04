@@ -1,16 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Input, Box, Container, Heading, Text } from 'theme-ui';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const Subscribe = () => {
+  const [email, setEmail] = useState('');
+
+  const handleInputChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBUzOIriHtydlQYkC7gKAV0rYw6kZ_pJmk",
+    authDomain: "thekinectproject.firebaseapp.com",
+    projectId: "thekinectproject",
+    storageBucket: "thekinectproject.appspot.com",
+    messagingSenderId: "858733214983",
+    appId: "1:858733214983:web:4658ba72292a13eb6599a2"
+    };
+
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
+
+    try {
+      await addDoc(collection(db, 'newsletter'), {
+        email: email,
+        subscribedAt: serverTimestamp(),
+      });
+
+      setEmail('');
+      console.log('Email subscribed successfully!');
+    } catch (error) {
+      console.error('Error subscribing:', error);
+    }
+  };
+
   return (
     <Box as="section" sx={styles.subscribe}>
-      <div id = "newsletter"/>
+      <div id="newsletter" />
       <Container>
         <Heading as="h3">Subscribe to get notified about new events</Heading>
-        <Text as="p">
-          We won't send spam!
-        </Text>
-        <Box as="form" sx={styles.form}>
+        <Text as="p">We won't send spam!</Text>
+        <Box as="form" sx={styles.form} onSubmit={handleSubscribe}>
           <Box as="label" htmlFor="subscribeEmail" variant="styles.srOnly">
             Email
           </Box>
@@ -19,6 +54,8 @@ const Subscribe = () => {
             type="email"
             id="subscribeEmail"
             sx={styles.input}
+            value={email}
+            onChange={handleInputChange}
           />
           <Button type="submit" sx={styles.button}>
             Subscribe
