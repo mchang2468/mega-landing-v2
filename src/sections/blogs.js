@@ -22,14 +22,14 @@ const BLOG_DATA = [
     path: 'https://apnews.com/press-release/ein-presswire-newsmatics/education-ein-presswire-newsmatics-58fe2b4c330abc443e0e592d5271c898',
     linkLabel: null,
   },
-  {
-    image: blogImage1,
-    title:
-      '100+ Others',
-    description: null,
-    path: 'https://www.einpresswire.com/press-releases/report/FuLauKABLKwQHZvK?n=2',
-    linkLabel: null,
-  },
+  // {
+  //   image: blogImage1,
+  //   title:
+  //     '100+ Others',
+  //   description: null,
+  //   path: 'https://www.einpresswire.com/press-releases/report/FuLauKABLKwQHZvK?n=2',
+  //   linkLabel: null,
+  // },
 ];
 
 const masonryOptions = {
